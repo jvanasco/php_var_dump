@@ -7,30 +7,30 @@ r"""
     Why on earth would you want this?!?!?
     =====================================
     
-	Imagine that you have to deploy something in php.  You don't have a choice.
-	You HAVE to.
-	
-	php_var_dump lets you do all your data processing and management in python.
-	You can then convert your native python data structures into php code,
-	which can then be saved as include fles for php.
-	
-	Other python modules that can accomplish the general idea:
-		phpserialize
-		    implements the PHP serialize/unserialize functions in python
-			allows you to serialize a python data structure to PHP
-			allows you to unserialize a php data structure to Python
-		simplejson
-			there are json parsers in php, which can read code you save
-			
-	The main benefit of using the var_dump method, is that there is no overhead
-	in loading/unloading/parsing/etc.  
-	
-	This method allows you to build a php include file that simply runs fast, 
-	and that can use multiple includes within the filesystem as a "database"
-	like system. This way you don't have to set up any databases, libraries, 
-	or whatever - you can just deploy PHP code without coding much in PHP.
-		
-	
+    Imagine that you have to deploy something in php.  You don't have a choice.
+    You HAVE to.
+    
+    php_var_dump lets you do all your data processing and management in python.
+    You can then convert your native python data structures into php code,
+    which can then be saved as include fles for php.
+    
+    Other python modules that can accomplish the general idea:
+        phpserialize
+            implements the PHP serialize/unserialize functions in python
+            allows you to serialize a python data structure to PHP
+            allows you to unserialize a php data structure to Python
+        simplejson
+            there are json parsers in php, which can read code you save
+            
+    The main benefit of using the var_dump method, is that there is no overhead
+    in loading/unloading/parsing/etc.  
+    
+    This method allows you to build a php include file that simply runs fast, 
+    and that can use multiple includes within the filesystem as a "database"
+    like system. This way you don't have to set up any databases, libraries, 
+    or whatever - you can just deploy PHP code without coding much in PHP.
+        
+    
     
 
     Usage
@@ -42,15 +42,15 @@ r"""
     >>> print as_php
     $var = 'Hello World';
     
-	You'd probable then want to save it...
-	
+    You'd probable then want to save it...
+    
     data_string= "<?php\n\n%s\n\n?>" % as_php
     open('data.php','w').write(data_string.encode( "utf-8" ))
     
     Then just include that file in your php programs.
     
     There's also a php_as_block function, which does the trivial encapsulation as above.
-	
+    
 
     :copyright: 2012 by Jonathan Vanasco
     license: BSD
