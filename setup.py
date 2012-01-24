@@ -22,7 +22,7 @@ setup(
     author='Jonathan Vanasco',
     author_email='jonathan@findmeon.com',
     version='0.1',
-    url='http://github.com/jvanasco/php_asvar',
+    url='http://github.com/jvanasco/php_var_dump',
     py_modules=['php_var_dump'],
     description='a port of the var_dump function of php to python.',
     long_description=get_docs(),
