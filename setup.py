@@ -1,6 +1,7 @@
 import os
 from setuptools import setup
 
+
 def get_docs():
     result = []
     in_docs = False
@@ -17,11 +18,12 @@ def get_docs():
         f.close()
     return '\n'.join(result)
 
+
 setup(
     name='php_var_dump',
     author='Jonathan Vanasco',
     author_email='jonathan@findmeon.com',
-    version='0.1',
+    version='0.2',
     url='http://github.com/jvanasco/php_var_dump',
     py_modules=['php_var_dump'],
     description='a port of the var_dump function of php to python.',
