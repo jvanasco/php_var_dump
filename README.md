@@ -9,6 +9,11 @@ docs are inline
 
 Changelog-
 
+unreleased
+	* upgraded black; 20.8b1
+	* integrated with pre-commit
+
+
 v0.0.2
 	flake8
 

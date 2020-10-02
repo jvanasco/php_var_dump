@@ -61,7 +61,7 @@ import types
 
 
 def _php_var_dump(data, depth=0):
-    """ utility function; recursively called.  depth is used to control the amount of padding.
+    """utility function; recursively called.  depth is used to control the amount of padding.
     This has a limited amount of support for data structures. functions, lambas, etc are not supported
     """
     padding = "  " * depth
@@ -72,14 +72,14 @@ def _php_var_dump(data, depth=0):
         for i in data:
             item = keypadding + "'%s' => %s" % (i, _php_var_dump(data[i], depth=depth))
             items.append(item)
-        items = ',\n'.join(items)
-        return '%sArray(\n%s\n%s)' % (padding, items, padding)
+        items = ",\n".join(items)
+        return "%sArray(\n%s\n%s)" % (padding, items, padding)
     if isinstance(data, (types.ListType, types.TupleType)):
         items = []
         for i in data:
             items.append(_php_var_dump(i, depth=depth))
-        items = ',\n'.join(items)
-        return '%sArray(\n%s\n%s)' % (padding, items, padding)
+        items = ",\n".join(items)
+        return "%sArray(\n%s\n%s)" % (padding, items, padding)
     elif isinstance(data, types.StringType):
         return padding + "'%s'" % data
     elif isinstance(data, types.UnicodeType):
@@ -95,7 +95,9 @@ def _php_var_dump(data, depth=0):
     elif isinstance(data, types.FloatType):
         return padding + "%s" % data
     else:
-        raise ValueError("Unsupported data type (%s) for data: '%s'" % (type(data), data))
+        raise ValueError(
+            "Unsupported data type (%s) for data: '%s'" % (type(data), data)
+        )
 
 
 def php_var_dump(name, data):
