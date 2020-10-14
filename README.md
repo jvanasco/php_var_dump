@@ -9,9 +9,10 @@ docs are inline
 
 Changelog-
 
-unreleased
+v0.0.3-unreleased
 	* upgraded black; 20.8b1
 	* integrated with pre-commit
+	* tox, github actions
 
 
 v0.0.2

@@ -1,7 +1,15 @@
+# stdlib
 import unittest
 
+# pypi
+import six
 
+# local
+import php_var_dump
 from php_var_dump import php_var_dump
+
+
+# ==============================================================================
 
 
 class TestVarDump(unittest.TestCase):
@@ -11,15 +19,17 @@ class TestVarDump(unittest.TestCase):
         string = "a"
         as_var = php_var_dump("string", string)
 
-    def test_string_unicode(self):
-        string = "a"
-        string = unicode(string)
-        as_var = php_var_dump("string", string)
+    if six.PY2:
 
-    def test_string_utf8(self):
-        string = "a"
-        string = unicode(string, "utf-8")
-        as_var = php_var_dump("string", string)
+        def test_string_unicode(self):
+            string = "a"
+            string = unicode(string)
+            as_var = php_var_dump("string", string)
+
+        def test_string_utf8(self):
+            string = "a"
+            string = unicode(string, "utf-8")
+            as_var = php_var_dump("string", string)
 
     def test_int(self):
         int = 1
@@ -55,9 +65,11 @@ class TestVarDump(unittest.TestCase):
         bool = False
         as_var = php_var_dump("bool", bool)
 
-    def test_long(self):
-        longed = long(1.99123)
-        as_var = php_var_dump("longed", longed)
+    if six.PY2:
+
+        def test_long(self):
+            longed = long(1.99123)
+            as_var = php_var_dump("longed", longed)
 
     def test_float(self):
         floated = float(2.912)
