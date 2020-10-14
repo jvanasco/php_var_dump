@@ -1,3 +1,5 @@
+![Python package](https://github.com/jvanasco/php_var_dump/workflows/Python%20package/badge.svg)
+
 a port of the var_dump function of php to python.
 
 This module allows you to dump python objects into PHP code.
@@ -9,14 +11,15 @@ docs are inline
 
 Changelog-
 
-v0.0.3-unreleased
-	* upgraded black; 20.8b1
-	* integrated with pre-commit
-	* tox, github actions
+v0.3
 
+  * upgraded black; 20.8b1
+  * integrated with pre-commit
+  * tox, github actions
+  * python3 support
 
-v0.0.2
+v0.2
 	flake8
 
-v0.0.1
+v0.1
 	initial
