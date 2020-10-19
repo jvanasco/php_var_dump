@@ -13,7 +13,9 @@ from php_var_dump import php_var_dump
 
 
 class TestVarDump(unittest.TestCase):
-    """Since we're printing strings, which could be sorted any-which-way, the easiest way to test (short of embedding a php interpreter) is to just see if we trigger an error."""
+    """
+    Since we're printing strings, which could be sorted any-which-way, the easiest way to test (short of embedding a php interpreter) is to just see if we trigger an error.
+    """
 
     def test_string(self):
         string = "a"

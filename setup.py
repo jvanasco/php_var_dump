@@ -1,24 +1,20 @@
+"""
+php_var_dump installation script.
+"""
 import os
+import re
+
 from setuptools import setup
 from setuptools import find_packages
 
+here = os.path.abspath(os.path.dirname(__file__))
+README = open(os.path.join(here, "README.rst")).read()
 
-def get_docs():
-    result = []
-    in_docs = False
-    f = open(os.path.join(os.path.dirname(__file__), "php_var_dump/__init__.py"))
-    try:
-        for line in f:
-            if in_docs:
-                if line.lstrip().startswith(":copyright:"):
-                    break
-                result.append(line[4:].rstrip())
-            elif line.strip() == 'r"""':
-                in_docs = True
-    finally:
-        f.close()
-    return "\n".join(result)
-
+# store version in the init.py
+with open(
+    os.path.join(os.path.dirname(__file__), "php_var_dump", "__init__.py")
+) as v_file:
+    VERSION = re.compile(r'.*__VERSION__ = "(.*?)"', re.S).match(v_file.read()).group(1)
 
 requires = [
     "six",
@@ -32,10 +28,10 @@ setup(
     name="php_var_dump",
     author="Jonathan Vanasco",
     author_email="jonathan@findmeon.com",
-    version="0.3",
+    version=VERSION,
     url="http://github.com/jvanasco/php_var_dump",
-    description="a port of the var_dump function of php to python.",
-    long_description=get_docs(),
+    description="A port of the var_dump function of PHP to Python.",
+    long_description=README,
     license="BSD",
     packages=find_packages(),
     include_package_data=True,
