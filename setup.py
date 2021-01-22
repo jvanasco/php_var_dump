@@ -7,13 +7,14 @@ import re
 from setuptools import setup
 from setuptools import find_packages
 
-here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, "README.rst")).read()
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+long_description = description = "A port of the var_dump function of PHP to Python."
+with open(os.path.join(HERE, "README.rst")) as fp:
+    long_description = fp.read()
 
 # store version in the init.py
-with open(
-    os.path.join(os.path.dirname(__file__), "php_var_dump", "__init__.py")
-) as v_file:
+with open(os.path.join(HERE, "php_var_dump", "__init__.py")) as v_file:
     VERSION = re.compile(r'.*__VERSION__ = "(.*?)"', re.S).match(v_file.read()).group(1)
 
 requires = [
@@ -30,7 +31,7 @@ setup(
     author_email="jonathan@findmeon.com",
     version=VERSION,
     url="http://github.com/jvanasco/php_var_dump",
-    description="A port of the var_dump function of PHP to Python.",
+    description=description,
     long_description=README,
     license="BSD",
     packages=find_packages(),
