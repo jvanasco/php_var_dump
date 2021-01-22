@@ -9,7 +9,9 @@ from setuptools import find_packages
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
-long_description = description = "A port of the var_dump function of PHP to Python."
+long_description = (
+    description
+) = "A port of the var_dump function of PHP to Python. This lets you make PHP files with Python."
 with open(os.path.join(HERE, "README.rst")) as fp:
     long_description = fp.read()
 
@@ -32,7 +34,7 @@ setup(
     version=VERSION,
     url="http://github.com/jvanasco/php_var_dump",
     description=description,
-    long_description=README,
+    long_description=long_description,
     license="BSD",
     packages=find_packages(),
     include_package_data=True,
