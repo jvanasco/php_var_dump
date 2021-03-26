@@ -16,7 +16,7 @@ with open(os.path.join(HERE, "README.rst")) as fp:
     long_description = fp.read()
 
 # store version in the init.py
-with open(os.path.join(HERE, "php_var_dump", "__init__.py")) as v_file:
+with open(os.path.join(HERE, "src", "php_var_dump", "__init__.py")) as v_file:
     VERSION = re.compile(r'.*__VERSION__ = "(.*?)"', re.S).match(v_file.read()).group(1)
 
 requires = [
@@ -36,7 +36,10 @@ setup(
     description=description,
     long_description=long_description,
     license="BSD",
-    packages=find_packages(),
+    packages=find_packages(
+        where="src",
+    ),
+    package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
     install_requires=requires,

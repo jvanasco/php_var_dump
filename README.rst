@@ -73,6 +73,9 @@ There's also a `php_as_block` function, which does the trivial encapsulation as 
 Changelog
 =========
 
+v0.3.2
+* packaging fixes
+
 v0.3.1
 * packaging fixes
 
