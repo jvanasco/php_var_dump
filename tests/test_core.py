@@ -1,5 +1,7 @@
 # stdlib
 import unittest
+from datetime import date, datetime
+from decimal import Decimal
 
 # pypi
 import six
@@ -7,6 +9,7 @@ import six
 # local
 import php_var_dump
 from php_var_dump import php_var_dump
+from tests import FixedOffset
 
 # ==============================================================================
 
@@ -132,3 +135,60 @@ class TestVarDump(unittest.TestCase):
         self.assertEqual(php_var_dump("data", [shared, shared]).count("Array("), 3)
         shared.append({"cycle": shared})
         self.assertRaises(ValueError, php_var_dump, "data", shared)
+
+    def test_datetime_encodings(self):
+        # type: () -> None
+        """Encode an aware datetime in all three formats."""
+        value = datetime(1970, 1, 1, 1, tzinfo=FixedOffset())
+        self.assertEqual(
+            php_var_dump("date", value),
+            "$date = \\DateTimeImmutable::createFromTimestamp(0);",
+        )
+        self.assertEqual(
+            php_var_dump("date", value, datetime_format="timestamp_legacy"),
+            "$date = new \\DateTimeImmutable('@0');",
+        )
+        self.assertEqual(
+            php_var_dump("date", value, datetime_format="string"),
+            "$date = '1970-01-01T01:00:00+01:00';",
+        )
+
+    def test_datetime_naive_and_invalid_format(self):
+        # type: () -> None
+        """Allow naive strings and reject ambiguous timestamps and unknown modes."""
+        value = datetime(1970, 1, 1)
+        self.assertEqual(
+            php_var_dump("date", value, datetime_format="string"),
+            "$date = '1970-01-01T00:00:00';",
+        )
+        self.assertRaises(ValueError, php_var_dump, "date", value)
+        self.assertRaises(
+            ValueError, php_var_dump, "date", value, datetime_format="timestamp_legacy"
+        )
+        self.assertRaises(
+            ValueError, php_var_dump, "date", 1, datetime_format="invalid"
+        )
+
+    def test_date_is_independent_of_datetime_format(self):
+        # type: () -> None
+        """Render a calendar date as an ISO string in each datetime mode."""
+        for mode in ("timestamp", "timestamp_legacy", "string"):
+            self.assertEqual(
+                php_var_dump("day", date(2028, 2, 29), datetime_format=mode),
+                "$day = '2028-02-29';",
+            )
+
+    def test_decimal_uses_exact_string_representation(self):
+        # type: () -> None
+        """Preserve decimal precision, scale, and special values as text."""
+        for text in (
+            "12345678901234567890.1200",
+            "-0.00",
+            "1E-1000000",
+            "Infinity",
+            "NaN",
+        ):
+            self.assertEqual(
+                php_var_dump("amount", Decimal(text)),
+                "$amount = '%s';" % text,
+            )

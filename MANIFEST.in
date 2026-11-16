@@ -2,6 +2,6 @@ graft src
 graft tests
 
 include setup.cfg pyproject.toml
-include README.rst
+include README.md
 
 recursive-exclude * __pycache__ *.py[cod] .DS_Store
