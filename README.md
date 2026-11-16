@@ -15,29 +15,30 @@ Sometimes you need to run a PHP website.
 Why on earth would you want this?!?!?
 =====================================
 
-Imagine that you have to deploy something in PHP.  You don't have a choice.
+Imagine that you have to deploy something in PHP.
+You don't have a choice.
 You HAVE to.
 
 `php_var_dump` lets you do all your data processing and management in Python.
-You can then convert your native Python data structures into PHP code,
+You then convert your native Python data structures into native PHP code,
 which can then be saved as include fles for PHP.
 
 Other Python modules that can accomplish the general idea:
 
-* phpserialize
-  implements the PHP serialize/unserialize functions in Python
-  allows you to serialize a Python data structure to PHP
-  allows you to unserialize a php data structure to Python
+* `phpserialize`
+  Implements the PHP serialize/unserialize functions in Python.
+  Allows you to serialize a Python data structure to PHP.
+  Allows you to unserialize a php data structure to Python.
 
-* simplejson
-  there are json parsers in PHP, which can read code you save
+* `json` / `simplejson`
+  There are json parsers in PHP, which can read code you save.
 
 The main benefit of using the var_dump method, is that there is no overhead
 in loading/unloading/parsing/etc.
 
 This method allows you to build a PHP include file that simply runs fast,
-and that can use multiple includes within the filesystem as a "database"
-like system. This way you don't have to set up any databases, libraries,
+and that can use multiple includes within the filesystem as a database-like
+system. This way you don't have to set up any databases, libraries,
 or whatever - you can just deploy PHP code without coding much in PHP.
 
 Usage
@@ -73,7 +74,7 @@ There's also a `php_as_block` function, which does the trivial encapsulation as 
 Changelog
 =========
 
-Unreleased
+v1.0.0
 ----------
 
 * Build with setuptools through ``pyproject.toml`` and keep package metadata and
