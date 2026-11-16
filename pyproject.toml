@@ -1,5 +1,10 @@
 [build-system]
-requires = ["setuptools>=40.9", "wheel"]
+requires = [
+    "setuptools>=40.9",
+    "wheel",
+    # Python 2 setuptools imports the package to read its version.
+    "six; python_version < '3'",
+]
 build-backend = "setuptools.build_meta"
 
 [tool.black]

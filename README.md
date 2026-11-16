@@ -79,6 +79,7 @@ v1.0.0
 
 * Build with setuptools through ``pyproject.toml`` and keep package metadata and
   tox settings in ``setup.cfg``.
+* Install `six` in isolated Python 2 builds so setuptools can read the version.
 * Align the tox and GitHub Actions matrices through Python 3.15 and generate
   HTML coverage reports.
 * Escape strings and dictionary keys, validate assignment names, emit PHP
