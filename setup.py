@@ -30,7 +30,7 @@ testing_extras = tests_require + [
 setup(
     name="php_var_dump",
     author="Jonathan Vanasco",
-    author_email="jonathan@findmeon.com",
+    author_email="jvanasco@2xlp.com",
     version=VERSION,
     url="http://github.com/jvanasco/php_var_dump",
     description=description,
@@ -49,7 +49,6 @@ setup(
     },
     test_suite="tests",
     classifiers=[
-        "License :: OSI Approved :: BSD License",
         "Programming Language :: PHP",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
