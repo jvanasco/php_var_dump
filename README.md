@@ -4,8 +4,8 @@
 
 `php_var_dump` converts Python values into PHP source code you can write to an
 include file. It was originally built to turn state-specific voting data from
-CSV files into PHP includes for voter registration sites and advertising
-widgets. The Python ingestion tool prepares the data ahead of deployment, and
+CSV files into PHP includes for voter registration websites and widgets.
+The Python ingestion tool prepares the data ahead of deployment, and
 PHP loads the generated file without having to parse the original CSV or
 decode a serialized payload on each request.
 
