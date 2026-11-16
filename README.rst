@@ -82,6 +82,7 @@ Unreleased
   HTML coverage reports.
 * Escape strings and dictionary keys, validate assignment names, emit PHP
   boolean and non-finite float literals, and reject recursive containers.
+* Add optional PHP CLI round-trip tests for nested values and numeric boundaries.
 
 v0.3.2
 * packaging fixes
