@@ -1,70 +1,42 @@
-php_var_dump
-~~~~~~~~~~~~
+# php_var_dump
 
 ![Python package](https://github.com/jvanasco/php_var_dump/workflows/Python%20package/badge.svg)
 
-A port of the `var_dump` function of PHP to Python.
+`php_var_dump` converts Python values into PHP source code you can write to an
+include file. It was originally built to turn state-specific voting data from
+CSV files into PHP includes for voter registration sites and advertising
+widgets. The Python ingestion tool prepares the data ahead of deployment, and
+PHP loads the generated file without having to parse the original CSV or
+decode a serialized payload on each request.
 
-This module allows you to "dump" trivial Python objects into PHP code.
+## Usage
 
-Why? So you can use Python to write fast PHP websites when you need to run PHP websites.
+```python
+from php_var_dump import php_as_block, php_var_dump
 
-Sometimes you need to run a PHP website.  
+assignment = php_var_dump("message", "Hello World")
+with open("data.php", "wb") as output:
+    output.write(php_as_block(assignment).encode("utf-8"))
+```
 
+The generated `data.php` contains:
 
-Why on earth would you want this?!?!?
-=====================================
+```php
+<?php
 
-Imagine that you have to deploy something in PHP.
-You don't have a choice.
-You HAVE to.
+$message = 'Hello World';
 
-`php_var_dump` lets you do all your data processing and management in Python.
-You then convert your native Python data structures into native PHP code,
-which can then be saved as include fles for PHP.
+?>
+```
 
-Other Python modules that can accomplish the general idea:
+Include the generated file in your PHP program:
 
-* `phpserialize`
-  Implements the PHP serialize/unserialize functions in Python.
-  Allows you to serialize a Python data structure to PHP.
-  Allows you to unserialize a php data structure to Python.
+```php
+<?php
 
-* `json` / `simplejson`
-  There are json parsers in PHP, which can read code you save.
-
-The main benefit of using the var_dump method, is that there is no overhead
-in loading/unloading/parsing/etc.
-
-This method allows you to build a PHP include file that simply runs fast,
-and that can use multiple includes within the filesystem as a database-like
-system. This way you don't have to set up any databases, libraries,
-or whatever - you can just deploy PHP code without coding much in PHP.
-
-Usage
-=====
-
-.. code-block:: python
-
-	from php_var_dump import php_var_dump
-	data = "Hello World"
-	as_php = php_var_dump('var', data )
-	print(as_php)
-
-That will generate valid PHP code:
-
-.. code-block:: php
-
-	$var = 'Hello World';
-
-You'd probable then want to save it...
-
-.. code-block:: python
-
-    data_string = "<?php\n\n%s\n\n?>" % as_php
-    open('data.php', 'w').write(data_string.encode( "utf-8" ))
-
-Then just include the `data.php` file in your PHP programs.
+require __DIR__ . '/data.php';
+echo $message;
+```
 
 `php_as_block()` wraps raw PHP source in PHP tags. Serialize data with
 `php_var_dump()` before passing the resulting assignment to `php_as_block()`.
@@ -102,7 +74,7 @@ which preserves precision, trailing zeros, and exponent notation when present.
 For example, `Decimal("12.3400")` produces the PHP string `'12.3400'`.
 Non-finite decimals also become strings, such as `'Infinity'` and `'NaN'`.
 
-### PHP value boundaries
+## PHP value boundaries
 
 **Array keys.** PHP can convert a quoted integer key such as `'12345'` to
 the integer `12345`. Leading-zero keys such as `'01234'` and ZIP+4 or precinct
@@ -113,17 +85,12 @@ consistent nonnumeric prefix. [PHP array key rules](https://www.php.net/manual/e
 PHP may represent integers outside its integer range as floats, which can
 lose precision.
 
-:copyright: 2012-2026 by Jonathan Vanasco
-:license: MIT
+## Changelog
 
-Changelog
-=========
+### v1.0.0
 
-v1.0.0
-----------
-
-* Build with setuptools through ``pyproject.toml`` and keep package metadata and
-  tox settings in ``setup.cfg``.
+* Build with setuptools through `pyproject.toml` and keep package metadata and
+  tox settings in `setup.cfg`.
 * Install `six` in isolated Python 2 builds so setuptools can read the version.
 * Align the tox and GitHub Actions matrices through Python 3.15 and generate
   HTML coverage reports.
@@ -136,20 +103,29 @@ v1.0.0
   coercion for identifiers.
 * MIT License
 
-v0.3.2
-* packaging fixes
+### v0.3.2
 
-v0.3.1
-* packaging fixes
+* Packaging fixes.
 
-v0.3
-* upgraded black; 20.8b1
-* integrated with pre-commit
-* tox, github actions
-* python3 support
+### v0.3.1
 
-v0.2
-* flake8
+* Packaging fixes.
 
-v0.1
-* initial
+### v0.3
+
+* Upgraded Black to 20.8b1.
+* Integrated with pre-commit.
+* Added tox and GitHub Actions.
+* Added Python 3 support.
+
+### v0.2
+
+* Added Flake8.
+
+### v0.1
+
+* Initial release.
+
+## License
+
+MIT. Copyright 2012–2026 Jonathan Vanasco.
