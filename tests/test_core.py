@@ -8,7 +8,6 @@ import six
 import php_var_dump
 from php_var_dump import php_var_dump
 
-
 # ==============================================================================
 
 
@@ -87,5 +86,49 @@ class TestVarDump(unittest.TestCase):
 
     def test_lambda(self):
         """This should fail!"""
-        lambdad = lambda x: x ** 2
+        lambdad = lambda x: x**2
         self.assertRaises(ValueError, lambda: php_var_dump("lambdad", lambdad))
+
+    def test_php_string_literals(self):
+        # type: () -> None
+        """Escape quotes and backslashes in both value and key literals."""
+        key = "key'\\"
+        value = b"caf\xe9'\\$name".decode("latin-1")
+        expected = b"$data = 'caf\xe9\\'\\\\$name';".decode("latin-1")
+        self.assertEqual(php_var_dump("data", value), expected)
+        self.assertIn(r"'key\'\\' =>", php_var_dump("data", {key: value}))
+
+    def test_invalid_assignment_names(self):
+        # type: () -> None
+        """Reject malformed and read-only assignment names."""
+        for name in (
+            "",
+            "0value",
+            "$value",
+            "two words",
+            "value\n",
+            "this",
+            "GLOBALS",
+            1,
+        ):
+            self.assertRaises(ValueError, php_var_dump, name, 1)
+
+    def test_php_scalar_literals(self):
+        # type: () -> None
+        """Render booleans and non-finite floats as PHP literals."""
+        for value, literal in (
+            (True, "true"),
+            (False, "false"),
+            (float("inf"), "INF"),
+            (float("-inf"), "-INF"),
+            (float("nan"), "NAN"),
+        ):
+            self.assertEqual(php_var_dump("value", value), "$value = %s;" % literal)
+
+    def test_recursive_and_shared_containers(self):
+        # type: () -> None
+        """Detect cycles while allowing the same value in separate branches."""
+        shared = [1]
+        self.assertEqual(php_var_dump("data", [shared, shared]).count("Array("), 3)
+        shared.append({"cycle": shared})
+        self.assertRaises(ValueError, php_var_dump, "data", shared)

@@ -67,11 +67,21 @@ Then just include the `data.php` file in your PHP programs.
 
 There's also a `php_as_block` function, which does the trivial encapsulation as above.
 
-:copyright: 2012 by Jonathan Vanasco
-:license: BSD
+:copyright: 2012-2026 by Jonathan Vanasco
+:license: MIT
 
 Changelog
 =========
+
+Unreleased
+----------
+
+* Build with setuptools through ``pyproject.toml`` and keep package metadata and
+  tox settings in ``setup.cfg``.
+* Align the tox and GitHub Actions matrices through Python 3.15 and generate
+  HTML coverage reports.
+* Escape strings and dictionary keys, validate assignment names, emit PHP
+  boolean and non-finite float literals, and reject recursive containers.
 
 v0.3.2
 * packaging fixes
